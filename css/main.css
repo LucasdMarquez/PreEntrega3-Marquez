@@ -1,0 +1,9 @@
+
+        .producto {
+            margin-bottom: 10px;
+        }
+        .contador {
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+        }
