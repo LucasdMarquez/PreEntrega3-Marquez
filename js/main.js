@@ -1,6 +1,8 @@
 
+
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 let total = parseFloat(localStorage.getItem('total')) || 0;
+
 
 function agregarProducto(nombre, precio) {
     const productoExistente = carrito.find(producto => producto.nombre === nombre);
@@ -56,12 +58,12 @@ function cambiarCantidad(nombre, cambio) {
     const producto = carrito.find(producto => producto.nombre === nombre);
     if (producto) {
         producto.cantidad += cambio;
-        producto.precio += cambio * (producto.precio / producto.cantidad);
         if (producto.cantidad <= 0) {
             carrito = carrito.filter(p => p.nombre !== nombre);
         } else {
-            total += cambio * (producto.precio / producto.cantidad);
+            producto.precio = producto.cantidad * (producto.precio / (producto.cantidad - cambio));
         }
+        total += cambio * (producto.precio / producto.cantidad);
         mostrarCarrito();
         guardarCarrito();
     }
@@ -88,6 +90,14 @@ function cargarCarrito() {
 }
 
 
+function vaciarCarrito() {
+    carrito = [];
+    total = 0;
+    mostrarCarrito();
+    guardarCarrito();
+}
+
+
 document.getElementById('productoForm').addEventListener('submit', (event) => {
     event.preventDefault();
     const nombreProducto = document.getElementById('nombreProducto').value;
@@ -98,6 +108,7 @@ document.getElementById('productoForm').addEventListener('submit', (event) => {
 
 document.getElementById('guardarCarrito').addEventListener('click', guardarCarrito);
 document.getElementById('cargarCarrito').addEventListener('click', cargarCarrito);
+document.getElementById('vaciarCarrito').addEventListener('click', vaciarCarrito);
 
 
 document.addEventListener('DOMContentLoaded', mostrarCarrito);
