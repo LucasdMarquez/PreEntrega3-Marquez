@@ -1,43 +1,72 @@
-// Variables para almacenar información del carrito
-let carrito = []; // Array para los productos en el carrito
-let total = 0; // Variable para el total de la compra
-// Agregar un producto al carrito
+
+let carrito = [];
+let total = 0;
+
+
 function agregarProducto(nombre, precio) {
     carrito.push({ nombre, precio });
     total += precio;
-    
+    mostrarCarrito();
 }
 
-// Calcular el total del carrito
 function calcularTotal() {
     return total;
 }
-const producto1 = { nombre: 'Camiseta', precio: 20 };
-const producto2 = { nombre: 'Zapatillas', precio: 50 };
-// Filtrar productos por precio
+
+
 function filtrarPorPrecio(maxPrecio) {
     return carrito.filter(producto => producto.precio <= maxPrecio);
 }
 
-// Buscar un producto por nombre
+
 function buscarProducto(nombre) {
     return carrito.find(producto => producto.nombre === nombre);
 }
-while (true) {
-    const nombreProducto = prompt('Ingresa el nombre del producto (o escribe "salir" para finalizar):');
-    if (nombreProducto.toLowerCase() === 'salir') {
-        break;
+
+
+function mostrarCarrito() {
+    const carritoDiv = document.getElementById('carrito');
+    carritoDiv.innerHTML = '';
+    let listaProductos = 'Productos en el carrito:<br>';
+    carrito.forEach(producto => {
+        listaProductos += `Nombre: ${producto.nombre}, Precio: ${producto.precio}<br>`;
+    });
+    listaProductos += `Total de la compra: ${calcularTotal()}`;
+    carritoDiv.innerHTML = listaProductos;
+}
+
+
+function guardarCarrito() {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    localStorage.setItem('total', total);
+    alert('Carrito guardado');
+}
+
+
+function cargarCarrito() {
+    const carritoGuardado = JSON.parse(localStorage.getItem('carrito'));
+    const totalGuardado = parseFloat(localStorage.getItem('total'));
+    if (carritoGuardado && totalGuardado) {
+        carrito = carritoGuardado;
+        total = totalGuardado;
+        mostrarCarrito();
+        alert('Carrito cargado');
+    } else {
+        alert('No hay carrito guardado');
     }
-    const precioProducto = parseFloat(prompt('Ingresa el precio del producto:'));
+}
+
+
+document.getElementById('productoForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const nombreProducto = document.getElementById('nombreProducto').value;
+    const precioProducto = parseFloat(document.getElementById('precioProducto').value);
     agregarProducto(nombreProducto, precioProducto);
-}
+    document.getElementById('productoForm').reset();
+});
 
-console.log('Productos en el carrito:', carrito);
-console.log('Total de la compra:', calcularTotal());
+document.getElementById('guardarCarrito').addEventListener('click', guardarCarrito);
+document.getElementById('cargarCarrito').addEventListener('click', cargarCarrito);
 
-let listaProductos = 'Productos en el carrito:\n';
-for (let producto of carrito) {
-    listaProductos += `Nombre: ${producto.nombre}, Precio: ${producto.precio}\n`;
-}
-listaProductos += `Total de la compra: ${calcularTotal()}`;
-alert(listaProductos);
+
+document.addEventListener('DOMContentLoaded', mostrarCarrito);

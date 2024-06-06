@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PreEntrega2-Marquez</title>
+    <title>Simulador de Carrito de Compras</title>
 </head>
 <body>
-    <h1>carrito de compras</h1>
+    <h1>Simulador de Carrito de Compras</h1>
+    <form id="productoForm">
+        <label for="nombreProducto">Nombre del producto:</label>
+        <input type="text" id="nombreProducto" required>
+        <label for="precioProducto">Precio del producto:</label>
+        <input type="number" id="precioProducto" required>
+        <button type="submit">Agregar al carrito</button>
+    </form>
+    <div id="resultado"></div>
+    <div id="carrito"></div>
+    <button id="guardarCarrito">Guardar Carrito</button>
+    <button id="cargarCarrito">Cargar Carrito</button>
     <script src="/js/main.js"></script>
 </body>
 </html>
