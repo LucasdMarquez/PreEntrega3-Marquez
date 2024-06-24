@@ -1,0 +1,26 @@
+
+        .producto {
+            margin-bottom: 10px;
+        }
+        .contador {
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+        }
+        /*body.dark {
+            background-color: #333;
+            color: #fff;
+        }
+        .titulo {
+            color: blue;
+        }
+        .navbar {
+            background-color: #f8f8f8;
+            padding: 10px;
+        }
+        .producto {
+            margin-bottom: 10px;
+        }
+        .contador {
+            margin: 0 5px;
+        }*/
