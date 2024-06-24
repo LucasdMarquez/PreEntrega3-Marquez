@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/LucasdMarquez/PreEntrega3-Marquez#readme",
   "dependencies": {
+    "bootstrap": "^5.2.3",
     "sweetalert2": "^11.12.0"
   }
 }
